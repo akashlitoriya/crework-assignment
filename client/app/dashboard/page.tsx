@@ -5,6 +5,7 @@ import MyProfile from "../components/MyProfile";
 import { RootState } from "../store/store";
 import TaskBoard from "../components/TaskBoard";
 import CreateTaskModal from "../components/CreateTaskModal";
+import { barlow } from "../fonts";
 
 
 export default function Dashboard() {
@@ -18,8 +19,10 @@ export default function Dashboard() {
             <div className="col-span-2 border-2 border-green-500">
                 <MyProfile />
             </div>
-            <div className="col-span-8 border-red-600 border-2">
-                <h1>Task Board</h1>
+            <div className="col-span-8 border-red-600 border-2 p-5">
+                <div>
+                    <h1 className={"text-5xl font-bold text-black " + barlow.className}>Good Morning, Joe!</h1>
+                </div>
                 <button onClick={()=>setModal(true)}>Create Task</button>
                 <div className="w-full">
                     <TaskBoard />

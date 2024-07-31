@@ -77,7 +77,7 @@ export default function Home() {
             }
           </div>
 
-          <CTAButton  typeBtn="submit" children="Login" onClick={()=>console.log("LOGIN FORM SUBMITTED")}/>
+          <CTAButton  typeBtn="submit" onClick={()=>console.log("LOGIN FORM SUBMITTED")}>Login</CTAButton>
         </form>
         <p className="text-center font-normal">Don’t have an account? Create a <button className="text-dark-blue font-medium" onClick={()=>router.push("/signup")}>new account</button></p>
       </div>

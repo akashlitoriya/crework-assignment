@@ -17,4 +17,4 @@ export const apiConnector = (url:string, method:string, data:object,headers:head
     })
 }
 
-export const backendUrl = "http://localhost:5000"
+export const backendUrl = "https://crework-assignment-uy6s.onrender.com"
