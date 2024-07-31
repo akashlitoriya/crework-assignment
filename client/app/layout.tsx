@@ -1,6 +1,8 @@
+
 import type { Metadata } from "next";
 import "./globals.css";
 import { inter } from "./fonts";
+import StoreProviders from "./components/StoreProvider";
 
 
 export const metadata: Metadata = {
@@ -15,7 +17,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <StoreProviders >
+          {children}
+        </StoreProviders>
+      </body>
     </html>
   );
 }

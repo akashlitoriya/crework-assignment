@@ -4,6 +4,7 @@ import { barlow } from "../fonts";
 import CTAButton from "../components/CTAButton";
 import { FiEye,FiEyeOff } from "react-icons/fi";
 import { useRouter } from "next/navigation";
+import { apiConnector, backendUrl } from "../services/apiConnector";
 
 export default function Home() {
   const router = useRouter();
@@ -13,7 +14,7 @@ export default function Home() {
   const [error, setError] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
@@ -23,13 +24,15 @@ export default function Home() {
     }
 
     // Simulate login process
-    console.log('Logging in with', { email, password });
-
+    console.log('Logging in with', { email, password, name });
+    const url = `${backendUrl}/api/v1/user/signup`
+    const signupResponse = await apiConnector(url, 'POST', { email, password, name }, { Authorization: "" }, '')
+    console.log("SIGNUP RESPOSNE FORM BACKEND : ", signupResponse)
     setEmail('');
     setPassword('');
     setName('')
 
-    router.push('/dashboard');
+    router.push('/');
   };
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-gradient-to-b from-white to-[#AFA3FF]">

@@ -4,15 +4,20 @@ import { barlow } from "./fonts";
 import CTAButton from "./components/CTAButton";
 import { FiEye,FiEyeOff } from "react-icons/fi";
 import { useRouter } from "next/navigation";
+import { apiConnector, backendUrl } from "./services/apiConnector";
+import { setToken } from "./store/userSlice";
+import { useDispatch } from "react-redux";
+
 
 export default function Home() {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
@@ -23,7 +28,13 @@ export default function Home() {
 
     // Simulate login process
     console.log('Logging in with', { email, password });
-
+    const url = `${backendUrl}/api/v1/user/login`
+    const loginResponse = await apiConnector(url, 'POST', { email, password }, { Authorization: ""},'')
+    console.log("LOGIN RESPOSNE FORM BACKEND : ",loginResponse)
+    if(loginResponse.status === 200){
+      dispatch(setToken(loginResponse.data.token));
+      localStorage.setItem('token', loginResponse.data.token);
+    }
     setEmail('');
     setPassword('');
 
