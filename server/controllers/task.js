@@ -3,7 +3,7 @@ const uuid = require('uuid4');
 
 const createTask = async(req, res) => {
     try{
-        const {title, description, status, deadline} = req.body;
+        const {title, description, status, deadline, priority} = req.body;
         if(!title || !status){
             return res.status(400).json({message:"All fields are required"});
         }
@@ -12,7 +12,7 @@ const createTask = async(req, res) => {
         }
         const user_id = req.user.id;
         const task_id = uuid();
-        const task = new Task({title, description, status, deadline, task_id, user_id});
+        const task = new Task({title, description, status, deadline, task_id, user_id, priority});
         await task.save();
         res.status(201).json({message:"Task created successfully"});
     }catch(err){
@@ -66,4 +66,44 @@ const deleteTask = async(req, res) =>{
     }
 }
 
-module.exports = {createTask, editTask, deleteTask};
+const getTodoTask = async(req, res) => {
+    try{
+        const user_id = req.user.id;
+        const tasks = await Task.find({user_id, status:"To do"});
+        res.status(200).json(tasks);
+    }catch(err){
+        res.status(500).json({message:"Internal server error"});
+    }
+}
+
+const getCompletedTask = async(req, res) => {
+    try{
+        const user_id = req.user.id;
+        const tasks = await Task.find({user_id, status:"Completed"});
+        res.status(200).json(tasks);
+    }catch(err){
+        res.status(500).json({message:"Internal server error"});
+    }
+}
+const getUnderReviewTask = async(req, res) => {
+    try{
+        const user_id = req.user.id;
+        const tasks = await Task.find({user_id, status:"Under Review"});
+        res.status(200).json(tasks);
+    }catch(err){
+        res.status(500).json({message:"Internal server error"});
+    }
+}
+
+const getInProgressTask = async(req, res) => {
+    try{
+        const user_id = req.user.id;
+        const tasks = await Task.find({user_id, status:"In progress"});
+        res.status(200).json(tasks);
+
+    }catch(err){
+        res.status(500).json({message:"Internal server error"});
+    }
+}
+
+module.exports = {createTask, editTask, deleteTask, getCompletedTask, getTodoTask, getUnderReviewTask, getInProgressTask};

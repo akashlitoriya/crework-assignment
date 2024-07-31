@@ -16,6 +16,9 @@ const taskSchema = new mongoose.Schema({
     deadline:{
         type: Date,
     },
+    priority:{
+        type:String
+    },
     task_id:{
         type: String,
         required: true

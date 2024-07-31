@@ -2,11 +2,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface ExampleState {
-  token: string;
+  token: string | null;
 }
 
 const initialState: ExampleState = {
-  token: localStorage.getItem('token') || '',
+  token: localStorage.getItem('token')? localStorage.getItem('token') : '',
 };
 
 const exampleSlice = createSlice({
