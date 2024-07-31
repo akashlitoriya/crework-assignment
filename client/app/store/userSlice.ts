@@ -6,7 +6,7 @@ interface ExampleState {
 }
 
 const initialState: ExampleState = {
-  token: localStorage.getItem('token')? localStorage.getItem('token') : '',
+  token:  '',
 };
 
 const exampleSlice = createSlice({
